@@ -1,0 +1,67 @@
+name: "Publish to Quay.io"
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation
+
+on:
+  push:
+    branches: 
+      - main-deployment
+    tags: [ 'v*.*.*' ]
+
+env:
+  REGISTRY: quay.io
+  IMAGE_NAME: ${{secrets.QUAY_IO_ACCOUNT_NAME}}/architecture-center-input-form
+  IMAGE_TAGS: ""
+  
+jobs:
+  build_and_publish:
+  
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install Dependencies
+        run: yarn install
+
+      - name: Build Project
+        run: yarn build
+        
+      - name: Determine image tags
+        if: env.IMAGE_TAGS == ''
+        run: |
+          echo "IMAGE_TAGS=latest ${GITHUB_SHA::12}" | tee -a $GITHUB_ENV
+
+      - name: Build from Dockerfile
+        id: build-image
+        uses: redhat-actions/buildah-build@v2
+        with:
+          image: ${{ env.IMAGE_NAME }}
+          tags: ${{ env.IMAGE_TAGS }}
+          dockerfiles: |
+            ./Dockerfile
+            
+      - name: Push to registry
+        id: push-image
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: ${{ steps.build-image.outputs.image }}
+          tags: ${{ steps.build-image.outputs.tags }}
+          registry: ${{ env.REGISTRY }}
+          username: ${{ secrets.ROBOT_ACCOUNT_NAME }}
+          password: ${{ secrets.QUAY_IO_TOKEN }}
+
+      - name: Wait for the image changes to propagate on quay.io
+        run: |
+          sleep 10

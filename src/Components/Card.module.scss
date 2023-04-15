@@ -1,0 +1,85 @@
+// .cardHeader {
+//     background-color: #e5e5e5;
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     padding: 0.5rem 1rem;
+//     border-bottom: 1px solid #ccc;
+// }
+
+// .cardContent {
+//     padding: 0.5rem 1rem;
+//     line-height: 1.4rem;
+//     overflow: hidden;
+//     display: block;
+//     text-overflow: ellipsis;
+//     display: -webkit-box;
+//     -webkit-line-clamp: 5;
+//     -webkit-box-orient: vertical;
+
+// }
+
+.tile {
+  display: flex;
+  flex-direction: column;
+}
+
+.featuredTile {
+  display: flex;
+  flex-direction: column;
+  grid-column-end: span 2;
+  border: 1px solid red;
+  padding-top: 10px;
+}
+
+.featuredTileMobile {
+  display: flex;
+  flex-direction: column;
+  grid-column-end: span 1;
+  padding-top: 45px;
+  border: 1px solid red;
+}
+
+.cardImage {
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 10px;
+}
+
+.titleLink {
+  padding-bottom: 5px;
+  padding-top: 5px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.description {
+  padding-bottom: 10px;
+  padding-top: 5px;
+  font-size: 18px;
+}
+
+.tags {
+  margin-top: auto;
+}
+
+.featuredTag {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.featuredTagMobile {
+  position: absolute;
+  top: 10px;
+}
+
+@media screen and (min-width: 1480px) {
+  .featuredTile {
+    display: flex;
+    flex-direction: column;
+    grid-column-end: span 3;
+    border: 1px solid red;
+    padding-top: 10px;
+  }
+}

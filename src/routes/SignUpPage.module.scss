@@ -1,0 +1,46 @@
+.signupFormContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.signupFormTile {
+    padding: 0px;
+    width: 500px;
+}
+
+.signupFormTile .innerContainer {
+    padding: 16px;
+    padding-bottom: 0px;
+}
+
+.signupFormTile .heading {
+    font-size: 1.75rem;
+    margin-bottom: 4px;
+}
+
+.signupFormTile .notification {
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.signupFormTile .notificationPlaceholder {
+    width: 100%;
+    height: 48px;
+}
+
+.signupFormTile .input {
+    margin-bottom: 16px;
+}
+
+.signupFormTile .buttonContainer {
+    margin-top: 48px;
+    display: flex;
+}
+
+.signupFormTile .flexColumn {
+    flex: 1;
+}
+
+.signupFormTile .button {
+    width: 100%;
+}

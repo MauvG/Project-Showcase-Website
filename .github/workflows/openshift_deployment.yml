@@ -1,0 +1,67 @@
+name: OpenShift
+
+env:
+  APP_NAME: "architecture-center-input-form"
+  APP_PORT: 5297
+  OPENSHIFT_NAMESPACE: ${{ secrets.OPENSHIFT_NAMESPACE }}
+
+on:
+  workflow_run:
+    workflows: ["Publish to Quay.io"]
+    types:
+      - completed
+
+jobs:   
+  openshift-deploy:
+    name: Deploy to OpenShift
+      # ubuntu-20.04 can also be used. 
+    runs-on: ubuntu-20.04
+
+    outputs:
+      ROUTE: ${{ steps.deploy-and-expose.outputs.route }}
+      SELECTOR: ${{ steps.deploy-and-expose.outputs.selector }}
+ 
+    steps:
+    - name: Checkout
+      id: checkout
+      uses: actions/checkout@v2
+      
+    - name: Install oc
+      uses: redhat-actions/openshift-tools-installer@v1
+      with:
+        oc: 4
+          
+      # https://github.com/redhat-actions/oc-login#readme
+    - name: Log in to OpenShift 
+      uses: redhat-actions/oc-login@v1
+      with:
+        openshift_server_url: ${{ secrets.OPENSHIFT_SERVER }}
+        openshift_token: ${{ secrets.OPENSHIFT_TOKEN }}
+        insecure_skip_tls_verify: true
+        namespace: ${{ env.OPENSHIFT_NAMESPACE }}
+    
+    - name: Create and expose app
+      id: deploy-and-expose
+      uses: redhat-actions/oc-new-app@v1
+      with:
+        app_name: ${{ env.APP_NAME }}
+        image: quay.io/${{secrets.QUAY_IO_ACCOUNT_NAME}}/architecture-center-input-form
+        namespace: ${{ env.OPENSHIFT_NAMESPACE }}
+        port: ${{ env.APP_PORT }}
+    
+    - name: Set environment
+      run: |
+        oc set env deployment.apps/architecture-center-input-form PORT=5297
+    
+    - name: Print application URL
+      env:
+        ROUTE: ${{ steps.deploy-and-expose.outputs.route }}
+        SELECTOR: ${{ steps.deploy-and-expose.outputs.selector }}
+      run: |
+        [[ -n ${{ env.ROUTE }} ]] || (echo "Determining application route failed in previous step"; exit 1)
+        echo
+        echo "======================== Your application is available at: ========================"
+        echo ${{ env.ROUTE }}
+        echo "==================================================================================="
+        echo          
+        echo "Your app can be taken down with: \"oc delete all --selector='${{ env.SELECTOR }}'\""

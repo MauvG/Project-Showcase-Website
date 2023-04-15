@@ -1,0 +1,30 @@
+{
+    "extends": [
+      "eslint:recommended",
+      "react-app"
+    ],
+    "plugins": [
+      "custom-rules"
+    ],
+    "rules": {
+      "array-callback-return": "error",
+      "no-await-in-loop": "warn",
+      "no-constant-binary-expression": "error",
+      "no-constructor-return": "error",
+      "no-duplicate-imports": "error",
+      "no-promise-executor-return": "error",
+      "no-template-curly-in-string": "warn",
+
+      "no-eval": "error",
+      "no-implied-eval":"error",
+      "no-var": "error",
+      "prefer-const": "error",
+      "require-await": "error",
+      "brace-style": "error",
+      "jsx-quotes": ["error", "prefer-single"],
+      "quotes": ["error", "single"],
+      "semi": "error",
+
+      "custom-rules/no-global-css": "error"
+    }
+}
