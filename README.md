@@ -2,7 +2,7 @@
 
 Input form for Red Hat Architecture Center
 
-This is a project we did as a college project for IBM.
+This is a project we did in college for IBM.
 It's a website where you can showcase your projects by adding them to the website using an ASCII doc input form.
 
 Install libraries:
