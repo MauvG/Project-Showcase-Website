@@ -6,8 +6,14 @@ This is a project we did as a college project for IBM.
 It's a website where you can showcase your projects by adding them to the website using an ASCII doc input form.
 
 Install libraries:
+
+```
 py -m pip install -r requirments.txt
+```
+
+```
 yarn
+```
 
 run with docker:
 
