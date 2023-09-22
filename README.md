@@ -1,3 +1,12 @@
+
+![main](https://github.com/MauvG/Project-Showcase-Website/assets/98029535/dc4b391b-b0ff-456c-b065-d427af7aa960)  
+
+![main2](https://github.com/MauvG/Project-Showcase-Website/assets/98029535/43009a14-0469-4f1f-afeb-158ffd395d04)
+
+![dashboard](https://github.com/MauvG/Project-Showcase-Website/assets/98029535/c5099964-0a98-476d-8558-5febb070e5ed)
+
+![new](https://github.com/MauvG/Project-Showcase-Website/assets/98029535/4763fdfd-0e92-4461-b069-3825529136e3)
+
 # Project Showcase Website
 
 Input form for Red Hat Architecture Center
